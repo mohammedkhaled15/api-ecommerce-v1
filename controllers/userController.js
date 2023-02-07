@@ -12,9 +12,9 @@ const updateUser = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
-        // username: req.body.username,
-        // password: req.body.password,
-        $set: req.body,
+        username: req.body.username,
+        password: req.body.password,
+        // $set: req.body,
       },
       { new: true }
     );
@@ -25,4 +25,24 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { updateUser };
+const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deleteUser) res.status(404).json("no user found with this ID");
+    res.status(200).json(`the user ${deletedUser.username} has been deleted`);
+  } catch (error) {
+    res.status(401).json("You haven't authority to delete users data");
+  }
+};
+
+const getUser = async (req, res) => {
+  try {
+    const requiredUser = await User.findOne({ _id: req.params.id });
+    if (!requiredUser) res.status(404).json("no user found with this ID");
+    res.status(200).json(requiredUser);
+  } catch (error) {
+    res.status(401).json("You haven't authority to see users data");
+  }
+};
+
+module.exports = { updateUser, deleteUser, getUser };
