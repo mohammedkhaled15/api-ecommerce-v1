@@ -1,17 +1,20 @@
 const express = require("express");
-const connectDB = require("./config/dbConn");
 const dotenv = require("dotenv");
-const userRoute = require("./routes/userRoute");
+const connectDB = require("./config/dbConnect");
+const authRouter = require("./routes/authRouter");
+const userRouter = require("./routes/userRouter");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
-
 connectDB();
 
 app.use(express.json());
-app.use("/api/users", userRoute);
+
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-  console.log(`Server is Running at ${port}`);
+  console.log(`Server is Running on Port: ${port}`);
 });

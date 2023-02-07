@@ -5,7 +5,7 @@ const OrderSchema = new mongoose.Schema(
     userID: { type: String, required: true },
     products: [
       {
-        productId: {
+        productID: {
           type: String,
         },
         quantity: {
