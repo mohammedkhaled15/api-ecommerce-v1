@@ -5,7 +5,7 @@ const verifyAccessTokenAndAuthorization = async (req, res, next) => {
     if (req.params.id === req.user.id) {
       next();
     } else {
-      res.status(403).json("frbidden to delete other users data");
+      res.status(403).json("Can't access other user data, without Admin Permission");
     }
   });
 };
