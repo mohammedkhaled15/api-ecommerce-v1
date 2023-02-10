@@ -1,5 +1,4 @@
 const Product = require("../models/Product");
-const cryptoJs = require("crypto-js");
 
 //CREATE NEW PRODUCT
 const createNewProduct = async (req, res) => {
@@ -50,7 +49,7 @@ const getProduct = async (req, res) => {
   }
 };
 
-//GET ALL USERS DATA
+//GET ALL Products DATA
 const getAllProducts = async (req, res) => {
   try {
     const qNew = req.query.new;
