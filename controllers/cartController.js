@@ -8,7 +8,8 @@ const createNewCart = async (req, res) => {
     const savedCart = await newCart.save();
     res.status(200).json(savedCart);
   } catch (error) {
-    res.status(500).json("You haven't authority to add Products");
+    console.log(error);
+    res.status(500).json("You haven't authority to add Carts");
   }
 };
 
