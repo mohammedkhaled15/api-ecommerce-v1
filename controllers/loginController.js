@@ -21,6 +21,15 @@ const loginController = async (req, res) => {
       process.env.ACCESSTOKEN_SECRET,
       { expiresIn: "3d" }
     );
+
+    // const refreshToken = jwt.sign(
+    //   { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
+    //   process.env.REFRESHTOKEN_SECRET,
+    //   { expiresIn: "3d" }
+    // );
+    // await User.findByIdAndUpdate(loggedUser._id, {
+    //   refreshToken,
+    // });
     const { password, ...others } = loggedUser._doc;
     res.status(200).json({ ...others, accessToken });
   } catch (error) {
