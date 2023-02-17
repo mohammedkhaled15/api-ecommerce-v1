@@ -6,7 +6,10 @@ const verifyJWT = async (req, res, next) => {
     if (!authHeaders) res.status(500).json("Access not Authorized");
     const token = authHeaders.split(" ")[1];
     jwt.verify(token, process.env.ACCESSTOKEN_SECRET, (error, user) => {
-      if (error) res.status(40).json("Access not Authorized");
+      if (error)
+        res
+          .status(403)
+          .json("Access not Authorized due to problems in accessToken");
       req.user = user;
       next();
     });

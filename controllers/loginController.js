@@ -19,18 +19,31 @@ const loginController = async (req, res) => {
     const accessToken = jwt.sign(
       { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
       process.env.ACCESSTOKEN_SECRET,
-      { expiresIn: "3d" }
+      { expiresIn: "15s" }
     );
 
-    // const refreshToken = jwt.sign(
-    //   { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
-    //   process.env.REFRESHTOKEN_SECRET,
-    //   { expiresIn: "3d" }
-    // );
-    // await User.findByIdAndUpdate(loggedUser._id, {
-    //   refreshToken,
-    // });
-    const { password, ...others } = loggedUser._doc;
+    const refreshToken = await jwt.sign(
+      { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
+      process.env.REFRESHTOKEN_SECRET,
+      { expiresIn: "3d" }
+    );
+    const updatedUser = await User.findByIdAndUpdate(
+      loggedUser._id,
+      {
+        refreshToken,
+      },
+      {
+        returnDocument: "after",
+      }
+    );
+
+    const { password, ...others } = updatedUser._doc;
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
     res.status(200).json({ ...others, accessToken });
   } catch (error) {
     res.status(500).json(error);

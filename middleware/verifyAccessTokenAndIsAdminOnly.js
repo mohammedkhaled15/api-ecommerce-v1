@@ -5,7 +5,7 @@ const verifyAccessTokenAndIsAdminOnly = async (req, res, next) => {
     if (req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json("Permission from Admin required");
+      res.status(403).json("you aren't admin");
     }
   });
 };

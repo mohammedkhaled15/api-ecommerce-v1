@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const productController = require("../controllers/productController");
 const verifyAccessTokenAndIsAdminOnly = require("../middleware/verifyAccessTokenAndIsAdminOnly");
+const verifyJWT = require("../middleware/verifyJWT");
 
 router.post(
   "/",
@@ -20,7 +21,7 @@ router.delete(
   productController.deleteProduct
 );
 
-router.get("/:id", productController.getProduct);
+router.get("/:id", verifyJWT, productController.getProduct);
 
 router.get("/", productController.getAllProducts);
 
