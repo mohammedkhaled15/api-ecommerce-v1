@@ -7,14 +7,14 @@ const verifyJWT = async (req, res, next) => {
     const token = authHeaders.split(" ")[1];
     jwt.verify(token, process.env.ACCESSTOKEN_SECRET, (error, user) => {
       if (error)
-        res
+        return res
           .status(403)
           .json("Access not Authorized due to problems in accessToken");
       req.user = user;
       next();
     });
   } catch (error) {
-    res.status(500).json("Access not Authorized");
+    return res.status(500).json("Access not Authorized");
   }
 };
 

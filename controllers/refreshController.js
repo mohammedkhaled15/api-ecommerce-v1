@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const refreshController = async (req, res) => {
-  if (!req.cookies?.refreshToken) return res.status(401).json("Not Authorized");
+  if (!req.cookies?.refreshToken)
+    return res.status(401).json("Not Authorizeddddddddd");
   const refreshToken = req.cookies.refreshToken;
   const foundUser = await User.findOne({ refreshToken });
   if (!foundUser) return res.status(403).json("second error");
