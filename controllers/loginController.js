@@ -14,12 +14,14 @@ const loginController = async (req, res) => {
       process.env.CRYPTO_PASSWORD
     );
     const originalPassword = hashedPassword.toString(cryptoJs.enc.Utf8);
-    if (originalPassword !== req.body.password)
+    if (originalPassword !== req.body.password) {
       res.status(401).json("Wrong password UNAUTHORIZED ENTRY");
+      return;
+    }
     const accessToken = jwt.sign(
       { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
       process.env.ACCESSTOKEN_SECRET,
-      { expiresIn: "15s" }
+      { expiresIn: "15m" }
     );
 
     const refreshToken = await jwt.sign(

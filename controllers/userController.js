@@ -54,7 +54,7 @@ const getAllUsers = async (req, res) => {
   try {
     const query = req.query.new;
     const allUsers = query
-      ? await User.find().limit(1).sort({ _id: -1 })
+      ? await User.find().limit(5).sort({ _id: -1 })
       : await User.find();
     res.status(200).json(allUsers);
   } catch (error) {
