@@ -10,6 +10,7 @@ const createNewOrder = async (req, res) => {
     res
       .status(500)
       .json({ message: "You haven't authority to create order ", error });
+    return;
   }
 };
 
