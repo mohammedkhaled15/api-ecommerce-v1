@@ -32,7 +32,9 @@ const deleteProduct = async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
     if (!deleteProduct) res.status(404).json("no product found with this ID");
-    res.status(200).json(`the user ${deleteProduct.title} has been deleted`);
+    res
+      .status(200)
+      .json(`the product ${deletedProduct.title} has been deleted`);
   } catch (error) {
     res.status(401).json("You haven't authority to delete products data");
   }
