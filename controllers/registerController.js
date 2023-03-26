@@ -7,6 +7,8 @@ const registerController = async (req, res) => {
   }
   try {
     const user = new User({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.username,
       email: req.body.email,
       password: cryptoJs.AES.encrypt(
@@ -14,6 +16,7 @@ const registerController = async (req, res) => {
         process.env.CRYPTO_PASSWORD
       ).toString(),
       isAdmin: req.body.isAdmin,
+      img: req.body.img,
     });
     const newUser = await user.save();
     res
