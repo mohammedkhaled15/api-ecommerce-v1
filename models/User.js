@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false },
     refreshToken: { type: String },
     img: { type: String },
+    transactions: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

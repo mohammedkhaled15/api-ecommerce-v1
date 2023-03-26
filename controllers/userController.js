@@ -9,13 +9,14 @@ const updateUser = async (req, res) => {
       proces.env.CRYPTO_PASSWORD
     ).toString();
   }
+  console.log(req.body);
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
         username: req.body.username,
         password: req.body.password,
-        // $set: req.body,
+        $inc: { transactions: req.body.trans },
       },
       { new: true }
     );

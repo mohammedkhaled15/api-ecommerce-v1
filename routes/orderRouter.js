@@ -3,6 +3,7 @@ const orderController = require("../controllers/orderController");
 const verifyToken = require("../middleware/verifyJWT");
 const verifyAccessTokenAndIsAdminOnly = require("../middleware/verifyAccessTokenAndIsAdminOnly");
 const verifyAccessTokenAndAuthorization = require("../middleware/verifyAccessTokenAndAuthorization");
+const verifyAccessTokenAndIsAdmin = require("../middleware/verifyAccessTokenAndIsAdmin");
 
 router.post("/", verifyToken, orderController.createNewOrder);
 
@@ -20,8 +21,8 @@ router.delete(
 
 router.get(
   "/find/:userId",
-  verifyAccessTokenAndAuthorization,
-  orderController.deleteOrder
+  verifyAccessTokenAndIsAdmin,
+  orderController.getOrders
 );
 
 router.get("/", verifyAccessTokenAndIsAdminOnly, orderController.getAllOrders);
