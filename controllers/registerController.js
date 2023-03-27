@@ -10,7 +10,9 @@ const registerController = async (req, res) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       username: req.body.username,
+      address: req.body.address,
       email: req.body.email,
+      mobile: req.body.mobile,
       password: cryptoJs.AES.encrypt(
         req.body.password,
         process.env.CRYPTO_PASSWORD
