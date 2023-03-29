@@ -9,21 +9,22 @@ const updateUser = async (req, res) => {
       proces.env.CRYPTO_PASSWORD
     ).toString();
   }
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
         username: req.body.username,
         password: req.body.password,
-        $inc: { transactions: req.body.trans },
+        $set: req.body,
+        $inc: { transactions: req.body.trans || 0 },
       },
       { new: true }
     );
     const { password, ...others } = updatedUser._doc;
     res.status(200).json(others);
   } catch (error) {
-    res.status(500).json("You haven't authority to edit users data");
+    res.status(500).json(error);
   }
 };
 

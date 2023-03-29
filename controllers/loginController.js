@@ -8,7 +8,9 @@ const loginController = async (req, res) => {
   }
   try {
     const loggedUser = await User.findOne({ username: req.body.username });
-    if (!loggedUser) res.status(500).json("Username Not Found in Database");
+    if (!loggedUser) {
+      return res.status(500).json("Username Not Found in Database");
+    }
     const hashedPassword = cryptoJs.AES.decrypt(
       loggedUser.password,
       process.env.CRYPTO_PASSWORD
