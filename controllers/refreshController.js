@@ -17,7 +17,7 @@ const refreshController = async (req, res) => {
         isAdmin: foundUser.isAdmin,
       },
       process.env.ACCESSTOKEN_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "15s" }
     );
     res.status(200).json({ accessToken });
   });

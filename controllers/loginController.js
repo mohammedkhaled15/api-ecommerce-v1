@@ -23,13 +23,13 @@ const loginController = async (req, res) => {
     const accessToken = jwt.sign(
       { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
       process.env.ACCESSTOKEN_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "15s" }
     );
 
     const refreshToken = await jwt.sign(
       { id: loggedUser.id, isAdmin: loggedUser.isAdmin },
       process.env.REFRESHTOKEN_SECRET,
-      { expiresIn: "3d" }
+      { expiresIn: "20s" }
     );
     const updatedUser = await User.findByIdAndUpdate(
       loggedUser._id,
